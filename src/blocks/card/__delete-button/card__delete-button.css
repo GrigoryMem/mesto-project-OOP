@@ -16,8 +16,11 @@
   -ms-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+  filter: drop-shadow(0 0 2px black);
 }
 
 .card__delete-button:hover {
   opacity: 0.6;
 }
+
+

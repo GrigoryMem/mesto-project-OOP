@@ -1,4 +1,9 @@
 .popup__label {
+  position: relative;
   display: block;
-  padding: 0 0 0;
+}
+
+.popup__label:not(:last-of-type) {
+  margin-bottom:32px;
+
 }

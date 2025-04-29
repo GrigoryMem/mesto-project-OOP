@@ -1,0 +1,9 @@
+.popup_type_confirm-delete .popup__content {
+  min-height: 181px;
+}
+.popup_type_confirm-delete .popup__form {
+  margin-top: 30px;
+}
+.popup_type_confirm-delete .popup__button {
+  margin-top: 0;
+}
