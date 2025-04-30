@@ -1,58 +1,52 @@
 .profile__image {
-  position: relative;
   width: 120px;
   height: 120px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
   border-radius: 50%;
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
-  
+  position: relative;
 }
 
-.profile__image::before{
+
+.profile__image:hover {
+  cursor: pointer;
+}
+
+.profile__image::before,
+.profile__image::after {
+  content: '';
   position: absolute;
-  content:"";
-  width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
-  background-color: rgba(0, 0, 0, 0);
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.6s;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.profile__image::before {
+  background: rgba(0, 0, 0, 0);
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 }
 
 .profile__image::after {
-  position: absolute;
-  content:"";
-  width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
+  width: 26px;
+  height: 26px;
   background-image: url('../../../images/edit-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 26px 26px;
+  background-size: contain;
   opacity: 0;
-  visibility: hidden;
-  transition: all 0.6s;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .profile__image:hover::before {
-  background-color: rgba(0, 0, 0, 0.5);
-  visibility: visible;
-  opacity: 1;
-
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .profile__image:hover::after {
   opacity: 1;
-  visibility: visible;
- 
 }
-
 
 
 @media screen and (max-width: 740px) {
