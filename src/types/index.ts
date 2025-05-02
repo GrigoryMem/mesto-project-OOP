@@ -18,17 +18,29 @@ export interface IUser{
 }
 // интерфейс для коллекции карточек
 export interface ICardsData {
-    cards: ICard[],
-    preview:string | null; // указатель на ту карточку которую мы хотим
+    cards: ICard[], // массив карточек
+    preview:string | null; // указатель на ту карточку которую мы хотим(попап просмотра карточки)
     // просмотреть(сохр Id карточки) чтобып онимать какую карточку смотреть в модалке
+    // null - вариант если мы не смотрим никакую карточку
+    addCard(card:ICard): void;
+    deleteCard(cardId:string,payload:Function | null):void;// payload доп функция
+    updateCard(card:ICard,payload:Function | null):void;
+    getCard(cardId:string): ICard;
+    checkValidation(data: Record<keyof TCardInfo, string>):boolean;
+}
+
+export interface IUserData {
+    getUserInfo(): TUserPublicInfo;
+    setUserInfo(userData:IUser): void; //сохраняем в формате сервера
+    checkValidation(data:Record<keyof TUserPublicInfo, string>):boolean
 }
 
 // Создаем отдельные типы данных:(на каких данных базируется работа компонентов) сравния элемент страницы на макете
 //  для  карточки (мо создания карточки)
-export type ICardInfo = Pick<ICard, 'name' | 'link'>;
+export type TCardInfo = Pick<ICard, 'name' | 'link'>; // создали чтобы описать то, что может вводиться в форме
 // для данных профиля(главная страница - где отобр 3 св-ва)
-export type IIserPublicInfo = Pick<IUser, 'name' | 'about' | 'avatar'>;
+export type TUserPublicInfo = Pick<IUser, 'name' | 'about' | 'avatar'>; // публичная информацияо польз
 // для профиля - МО изменить данные профиля
-export type IUserBaseInfo = Pick<IUser,'name' | 'about'>;
+export type TUserBaseInfo = Pick<IUser,'name' | 'about'>;
 // для формы для аватарки
-export type IUserAvatar = Pick<IUser,'avatar'>;
+export type TUserAvatar = Pick<IUser,'avatar'>;
