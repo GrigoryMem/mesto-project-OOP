@@ -29,10 +29,10 @@ export interface ICardsData {
     checkValidation(data: Record<keyof TCardInfo, string>):boolean;
 }
 
-export interface IUserData {
-    getUserInfo(): TUserPublicInfo;
-    setUserInfo(userData:IUser): void; //сохраняем в формате сервера
-    checkValidation(data:Record<keyof TUserPublicInfo, string>):boolean
+export interface IUserData{
+	getUserInfo(): TUserPublicInfo;
+	setUserInfo(userData: IUser): void;
+	checkUserValidation(data: Record<keyof TUserPublicInfo, string>): boolean;
 }
 
 // Создаем отдельные типы данных:(на каких данных базируется работа компонентов) сравния элемент страницы на макете
