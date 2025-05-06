@@ -46,7 +46,7 @@ export class UserData implements IUserData{
 			case 'avatar':
 				return this.checkAvatar(data.value);
 		}
-	}
+	}	
 
 	checkName(value: string) {
 		const result = validate.single(value, constraintsUser.name);

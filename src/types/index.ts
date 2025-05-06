@@ -44,3 +44,14 @@ export type TUserPublicInfo = Pick<IUser, 'name' | 'about' | 'avatar'>; // пу�
 export type TUserBaseInfo = Pick<IUser,'name' | 'about'>;
 // для формы для аватарки
 export type TUserAvatar = Pick<IUser,'avatar'>;
+
+
+// методы post запросов
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+// T это тип вовзращаемого объекта от сервера
+export interface IApi {
+    baseUrl: string;
+    get<T>(uri: string): Promise<T>;
+    post<T>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
+}

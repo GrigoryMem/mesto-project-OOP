@@ -1,12 +1,12 @@
 export const API_URL = `${process.env.API_ORIGIN}/v1/wff-cohort-26`;
 export const settings = {
-    headers:{
-      autohorization:`${process.env.API_TOKEN}`,
+    headers: {
+      authorization:`${process.env.API_TOKEN}`,
       'Content-Type': 'application/json'
-    }
+    },
 };
 
-
+//  библиотека validate - для работы регулярных выражений
 export const constraintsUser = {
 	name: {
 		presence: { message: '^Поле не может быть пустым', allowEmpty: false },
