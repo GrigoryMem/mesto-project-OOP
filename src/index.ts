@@ -15,7 +15,9 @@ import { testCards,testUser } from './utils/temperConstants';
 const baseApi = new Api(API_URL,settings)
 // AppApi — высокоуровневый адаптер под конкретное приложение (getCards, getUser и т.д.).
 const api = new AppApi(baseApi)
-const events:IEvents = new EventEmitter();
+const events = new EventEmitter();
+
+
 const cardsData =new CardData(events);
 const userData = new UserData(events)
 
@@ -42,15 +44,17 @@ const cardTemplate = document.querySelector('.card-template') as  HTMLTemplateEl
 //     });
 
 // const placesList = document.querySelector('.places__list');
-
-
+// тестирование событий:
+events.onAll((event)=>{
+  console.log(event.eventName,event.data)
+})
 
 Promise.all([api.getUser(),api.getCards(),])
   .then(([userInfo,cardsInfo])=>{
     userData.setUserInfo(userInfo)
-    console.log(userData.getUserInfo());
+    // console.log(userData.getUserInfo());
     cardsData.cards = cardsInfo;
-    console.log(cardsData.cards);
+    // console.log(cardsData.cards);
 
     // cardsData.cards.forEach((cardItem)=>{
     //   const template = document.querySelector('.card-template') as  HTMLTemplateElement

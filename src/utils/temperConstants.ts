@@ -24,13 +24,7 @@ export const testCards:ICard[] = [
       "_id": "67cacfafa2d9e1215a13a791",
       "name": "БУ",
       "link": "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-      "owner": {
-          "name": "Mary",
-          "about": "Смотрю Гарри По",
-          "avatar": "https://cdnn21.img.ria.ru/images/07e4/07/11/1574508695_411:0:974:563_1920x0_80_0_0_2a0ca2b0c32c883566852d1ca193c7a7.jpg",
-          "_id": "ec4741e403b0695d92f1aec7",
-          "cohort": "wff-cohort-26"
-      },
+      "owner": testUser,
       "createdAt": "2025-03-07T10:51:27.331Z"
   },
   {
