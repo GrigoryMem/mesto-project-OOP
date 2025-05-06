@@ -8,18 +8,19 @@ import { Api } from './components/base/api';
 import { AppApi } from './components/AppApi';
 
 import { API_URL,settings } from './utils/constants';
-
+import { Card } from './components/Card';
+import { testCards,testUser } from './utils/temperConstants';
 
 // Api — низкоуровневый HTTP-клиент.
-
+const baseApi = new Api(API_URL,settings)
 // AppApi — высокоуровневый адаптер под конкретное приложение (getCards, getUser и т.д.).
+const api = new AppApi(baseApi)
 const events:IEvents = new EventEmitter();
 const cardsData =new CardData(events);
 const userData = new UserData(events)
-const api = new Api(API_URL,settings)
-const appApi = new AppApi(api)
 
 
+const cardTemplate = document.querySelector('.card-template') as  HTMLTemplateElement
 
 // const user = appApi.getUser()
 //   .then((res)=>{
@@ -40,18 +41,39 @@ const appApi = new AppApi(api)
 //         console.log("Произошла ошибка", err)
 //     });
 
+// const placesList = document.querySelector('.places__list');
 
-Promise.all([appApi.getUser(),appApi.getCards(),])
+
+
+Promise.all([api.getUser(),api.getCards(),])
   .then(([userInfo,cardsInfo])=>{
     userData.setUserInfo(userInfo)
     console.log(userData.getUserInfo());
     cardsData.cards = cardsInfo;
     console.log(cardsData.cards);
-  
+
+    // cardsData.cards.forEach((cardItem)=>{
+    //   const template = document.querySelector('.card-template') as  HTMLTemplateElement
+    //   const cardWrap = new Card(template,events)
+    //   cardWrap.setData(cardItem,'')
+      
+    //   placesList.append(cardWrap.render())
+    // })
+    
+  })
+  .catch((err)=>{
+    console.log('Что-то пошло не так', err);
   })
 
 
+const testSection = document.querySelector('.places');
 
+
+      const cardWrap = new Card(cardTemplate,events)
+      cardWrap.setData(testCards[0],testUser._id)
+      
+      testSection.append(cardWrap.render())
+  
 
     // Слой	Что делает	Пример из твоего кода
     // API (инфра)	Говорит с сервером	Api, AppApi
