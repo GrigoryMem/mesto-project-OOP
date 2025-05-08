@@ -46,11 +46,20 @@ export class Card {
 //  заполнение всех  атрибуты эелементов разметки карточки
 // передаем данные
 	setData(cardData: Partial<ICard>, userId: string) {
+		// cardData: Partial<ICard> - это такой объект который будет частично содержаться в ICard
 		// userId: string - id польз-ля, от лица кот нужно нарисовать карточки
 		// userId поиск лайка -свой не свой
 		this.cardId = cardData._id; // сохраняем id карточки
-		// cardData:  лайкнута пользователем  с id userId:?
-		const cardIsLiked = cardData?.likes.some((like) => like._id === userId);
+
+	
+		
+		
+	}
+	
+	set likes ({likes, userId}:{likes:IUser[], userId:string}){
+		// установка лайка в нужное состояние
+					// В  массиве лайков карточки   - лайкнута пользователем  с id userId:?
+		const cardIsLiked = likes.some((like) => like._id === userId);
 		// / Передаём вторым аргументом false, и будет работать как remove()
 		// Опционально вторым аргументом можно передать boolean-значение:
 		//  метод будет работать как add(), если передать true, и как remove(),
@@ -60,19 +69,32 @@ export class Card {
 			cardIsLiked // если да то добав модификатор 'card__like-button_is-active'
 		);
 		// количество лайков сохр в наш счетчик
-		this.likesCount.textContent = String(cardData.likes.length);
-			// отображание или удаление корзины
-		if (cardData.owner._id !== userId) {
-			// владелец карточки  это пользователь которого мы сюда передали?
+		this.likesCount.textContent = String(likes.length);
+	}
+	// передаем  владельца и id пользователя с которым надо сравнивать
+	set owner({owner, userId}:{owner:IUser, userId:string}){
+		// отображание или удаление корзины
+		// владелец карточки  это пользователь которого мы сюда передали?
+		if (owner._id !== userId) {
+			
 			this.deleteButton.style.display = 'none';
 		} else {
 			this.deleteButton.style.display = 'inherit';
 		}
-		this.cardImage.style.backgroundImage = `url(${cardData.link})`;
-		this.cardTitle.textContent = cardData.name;
+	}
+	set link(link:string){
+		this.cardImage.style.backgroundImage = `url(${link})`;
 	}
 
-	get id() {
+	set name(name:string){
+		this.cardTitle.textContent = name;
+	}
+
+	set _id(id:string){
+		// сохраняем id
+		this.cardId = id;
+	}
+	get _id() {
 		return this.cardId; 
 		// возв id карточки
 	}

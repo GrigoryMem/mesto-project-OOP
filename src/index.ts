@@ -79,6 +79,7 @@ const testSection = document.querySelector('.places');
       testSection.append(cardWrap.render())
   
 
+      cardWrap.name = 'Hello,world'
     // Слой	Что делает	Пример из твоего кода
     // API (инфра)	Говорит с сервером	Api, AppApi
     // Model (домен)	Хранит и управляет данными	CardData, UserData
