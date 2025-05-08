@@ -45,7 +45,7 @@ export class Card {
 	}
 //  заполнение всех  атрибуты эелементов разметки карточки
 // передаем данные
-	setData(cardData: ICard, userId: string) {
+	setData(cardData: Partial<ICard>, userId: string) {
 		// userId: string - id польз-ля, от лица кот нужно нарисовать карточки
 		// userId поиск лайка -свой не свой
 		this.cardId = cardData._id; // сохраняем id карточки
