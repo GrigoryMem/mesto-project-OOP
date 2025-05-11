@@ -12,6 +12,7 @@ import { Card } from './components/Card';
 import { testCards,testUser } from './utils/temperConstants';
 import { CardsContainer } from './components/CardsContainer';
 import { cloneTemplate } from './utils/utils';
+import { UserInfo } from './components/UserInfo';
 
 // Api — низкоуровневый HTTP-клиент.
 const baseApi = new Api(API_URL,settings)
@@ -86,3 +87,21 @@ const cardArray = [];
 cardArray.push(card.render(testCards[2],testUser._id),card1.render(testCards[1],testUser._id),)
 
 cardsContainer.render({catalog:cardArray})
+
+const profile = document.querySelector('.profile') as HTMLElement
+
+const userInfo = new UserInfo(profile,events)
+
+
+const user = {
+  "name": "Anna Бабич",
+  "about": "programmer",
+  "avatar": "https://main-cdn.sbermegamarket.ru/big2/hlr-system/138/279/616/352/134/1/600011876299b0.jpeg",
+  "_id": "357c166adad92a7befb72246",
+  "cohort": "wff-cohort-26"
+}
+
+
+userInfo.render(user)
+
+userInfo.render({about:"Helloworld"})
