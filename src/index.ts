@@ -10,6 +10,8 @@ import { AppApi } from './components/AppApi';
 import { API_URL,settings } from './utils/constants';
 import { Card } from './components/Card';
 import { testCards,testUser } from './utils/temperConstants';
+import { CardsContainer } from './components/CardsContainer';
+import { cloneTemplate } from './utils/utils';
 
 // Api — низкоуровневый HTTP-клиент.
 const baseApi = new Api(API_URL,settings)
@@ -24,6 +26,8 @@ const userData = new UserData(events)
 
 const cardTemplate = document.querySelector('.card-template') as  HTMLTemplateElement
 
+
+const cardsContainer = new CardsContainer(document.querySelector('.places__list'))
 // const user = appApi.getUser()
 //   .then((res)=>{
 //     userData.setUserInfo(res)
@@ -70,18 +74,15 @@ Promise.all([api.getUser(),api.getCards(),])
   })
 
 
-const testSection = document.querySelector('.places');
+const testSection = document.querySelector('.places') as HTMLElement;
 
 
-      const cardWrap = new Card(cardTemplate,events)
-      cardWrap.setData(testCards[0],testUser._id)
-      
-      testSection.append(cardWrap.render())
-  
+    
 
-      cardWrap.name = 'Hello,world'
-    // Слой	Что делает	Пример из твоего кода
-    // API (инфра)	Говорит с сервером	Api, AppApi
-    // Model (домен)	Хранит и управляет данными	CardData, UserData
-    // Presenter / Glue	Соединяет API и Model	getCards().then(res => ...)
-    // View (UI)	Показывает данные	(у тебя пока нет — будет компонент)
+
+const card = new Card(cloneTemplate(cardTemplate),events);
+const card1 = new Card(cloneTemplate(cardTemplate),events);
+const cardArray = [];
+cardArray.push(card.render(testCards[2],testUser._id),card1.render(testCards[1],testUser._id),)
+
+cardsContainer.render({catalog:cardArray})
