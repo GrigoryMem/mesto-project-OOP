@@ -53,21 +53,15 @@ const cardsContainer = new CardsContainer(document.querySelector('.places__list'
 events.onAll((event)=>{
   console.log(event.eventName,event.data)
 })
-
+// первая отрисовка всех элементов
 Promise.all([api.getUser(),api.getCards(),])
   .then(([userInfo,cardsInfo])=>{
+    // Когда промисы завершаются, данные передаются в синхронную часть кода через .then().
     userData.setUserInfo(userInfo)
     // console.log(userData.getUserInfo());
     cardsData.cards = cardsInfo;
-    // console.log(cardsData.cards);
-
-    // cardsData.cards.forEach((cardItem)=>{
-    //   const template = document.querySelector('.card-template') as  HTMLTemplateElement
-    //   const cardWrap = new Card(template,events)
-    //   cardWrap.setData(cardItem,'')
-      
-    //   placesList.append(cardWrap.render())
-    // })
+    // генерируем событие когда все данные сохранены в моделях:
+    events.emit('initialData:loaded');
     
   })
   .catch((err)=>{
@@ -75,33 +69,37 @@ Promise.all([api.getUser(),api.getCards(),])
   })
 
 
-const testSection = document.querySelector('.places') as HTMLElement;
+// const testSection = document.querySelector('.places') as HTMLElement;
+const profile = document.querySelector('.profile') as HTMLElement
 
-
+const userView = new UserInfo(profile,events)
     
 
 
-const card = new Card(cloneTemplate(cardTemplate),events);
-const card1 = new Card(cloneTemplate(cardTemplate),events);
-const cardArray = [];
-cardArray.push(card.render(testCards[2],testUser._id),card1.render(testCards[1],testUser._id),)
+// const card = new Card(cloneTemplate(cardTemplate),events);
+// const card1 = new Card(cloneTemplate(cardTemplate),events);
+// const cardArray = [];
+// cardArray.push(card.render(testCards[2],testUser._id),card1.render(testCards[1],testUser._id),)
 
-cardsContainer.render({catalog:cardArray})
-
-const profile = document.querySelector('.profile') as HTMLElement
-
-const userInfo = new UserInfo(profile,events)
+// cardsContainer.render({catalog:cardArray})
 
 
-const user = {
-  "name": "Anna Бабич",
-  "about": "programmer",
-  "avatar": "https://main-cdn.sbermegamarket.ru/big2/hlr-system/138/279/616/352/134/1/600011876299b0.jpeg",
-  "_id": "357c166adad92a7befb72246",
-  "cohort": "wff-cohort-26"
-}
+// const userInfo = new UserInfo(profile,events)
 
 
-userInfo.render(user)
 
-userInfo.render({about:"Helloworld"})
+
+
+// userInfo.render(user)
+
+// userInfo.render({about:"Helloworld"})
+//  подписываемся на событие
+events.on('initialData:loaded',()=>{
+  const cardsArray = cardsData.cards.map((card)=>{
+    const cardInstant = new Card(cloneTemplate(cardTemplate),events);
+    return cardInstant.render(card, userData.id)
+  })
+  // грузим карточки и данные профиля
+  cardsContainer.render({catalog: cardsArray})
+  userView.render(userData.getUserInfo())
+})
