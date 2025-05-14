@@ -38,6 +38,8 @@ export class CardData implements ICardsData {
 
     updateCard(card: ICard, payload: Function | null = null) {
         const findedCard = this._cards.find((item) => item._id === card._id)
+        // Но вдруг по какой-то причине этой карточки ещё нет в локальном массиве
+        // (например, ты только что добавил её и не успел обновить массив).
         if (!findedCard) this.addCard(card);
         // Object.assign сохраняет ссылку на объект, обновляя только его свойства.
         Object.assign(findedCard, card);

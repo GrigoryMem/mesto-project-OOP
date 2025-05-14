@@ -42,7 +42,7 @@ export class AppApi {
 
 	changeLikeCardStatus(cardID: string, like: boolean): Promise<ICard> {
 		const method = like ? 'DELETE' : 'PUT';
-		return this._baseApi.post<ICard>(`/cards/like/${cardID}`, {}, method).then(
+		return this._baseApi.post<ICard>(`/cards/likes/${cardID}`, {}, method).then(
 			(res: ICard) => res
 		);
 	}
